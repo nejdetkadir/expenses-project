@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -28,8 +29,21 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         readFile();
+        setDataToTable();
     }
     
+    public void setDataToTable() {
+        jTable.getColumnModel().getColumn(0).setHeaderValue(data.get(0).getId());
+        jTable.getColumnModel().getColumn(1).setHeaderValue(data.get(0).getDate());
+        jTable.getColumnModel().getColumn(2).setHeaderValue(data.get(0).getCategory());
+        jTable.getColumnModel().getColumn(3).setHeaderValue(data.get(0).getPrice());
+        
+        for (int i = 1; i < data.size(); i++) {
+            ((DefaultTableModel) jTable.getModel()).addRow(new Object[] {data.get(i).getId(),data.get(i).getDate(),data.get(i).getCategory(),data.get(i).getPrice()});
+        }
+        
+    }
+        
     public void readFile() {
         try {
             if (System.getProperty("java.vendor").equals("Ubuntu")) {
