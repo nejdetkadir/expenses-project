@@ -1,3 +1,14 @@
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -9,12 +20,23 @@
  * @author nejdetkadirr
  */
 public class Main extends javax.swing.JFrame {
-
+    ArrayList<Expenses> data = new ArrayList<>();
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+"/src/harcamalar.txt")));
+            for(String line; (line = br.readLine()) != null; ) {
+                String[] items = line.split(";");
+                data.add(new Expenses(items[0], items[1], items[2], items[3]));
+            }
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(this, ex.getLocalizedMessage());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(this, ex.getLocalizedMessage());
+        }
     }
 
     /**
