@@ -27,13 +27,17 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        readFile();
+    }
+    
+    public void readFile() {
         try {
             if (System.getProperty("java.vendor").equals("Ubuntu")) {
                 br = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+"/src/harcamalar.txt")));
             } else {
                 br = new BufferedReader(new FileReader(new File(System.getProperty("user.dir")+"\\src\\harcamalar.txt")));
             }            
-            for(String line; (line = br.readLine()) != null; ) {
+            for(String line; (line = br.readLine()) != null;) {
                 String[] items = line.split(";");
                 data.add(new Expenses(items[0], items[1], items[2], items[3]));
             }
@@ -42,7 +46,6 @@ public class Main extends javax.swing.JFrame {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage());
         }
-
     }
 
     /**
@@ -54,12 +57,12 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        jScrollPane = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -75,12 +78,12 @@ public class Main extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
+        jScrollPane.setViewportView(jTable);
+        if (jTable.getColumnModel().getColumnCount() > 0) {
+            jTable.getColumnModel().getColumn(0).setResizable(false);
+            jTable.getColumnModel().getColumn(1).setResizable(false);
+            jTable.getColumnModel().getColumn(2).setResizable(false);
+            jTable.getColumnModel().getColumn(3).setResizable(false);
         }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -89,14 +92,14 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(311, Short.MAX_VALUE))
         );
 
@@ -139,7 +142,7 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JTable jTable;
     // End of variables declaration//GEN-END:variables
 }
