@@ -125,4 +125,12 @@ public class Expenses {
         return nameofmonth;
     }
     
+    public boolean isWeekend() {
+        if (getDay().equals("Cumartesi") || getDay().equals("Pazar")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 }
