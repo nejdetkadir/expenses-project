@@ -10,19 +10,19 @@
  */
 public class Expenses {
     
-    int id;
+    String id;
     String date;
     String category;
-    float price;
+    String price;
 
-    public Expenses(int id, String date, String category, float price) {
+    public Expenses(String id, String date, String category, String price) {
         this.id = id;
         this.date = date;
         this.category = category;
         this.price = price;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -34,7 +34,7 @@ public class Expenses {
         return category;
     }
 
-    public float getPrice() {
+    public String getPrice() {
         return price;
     }
     
