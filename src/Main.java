@@ -5,7 +5,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -64,6 +69,29 @@ public class Main extends javax.swing.JFrame {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage());
         }
+    }
+    
+    public static HashMap<String, Double> sortByValue(HashMap<String, Double> hm) 
+    { 
+        // Create a list from elements of HashMap 
+        LinkedList<Map.Entry<String, Double> > list = 
+               new LinkedList<Map.Entry<String, Double> >(hm.entrySet()); 
+  
+        // Sort the list 
+        Collections.sort(list, new Comparator<Map.Entry<String, Double> >() { 
+            public int compare(Map.Entry<String, Double> o1,  
+                               Map.Entry<String, Double> o2) 
+            { 
+                return (o1.getValue()).compareTo(o2.getValue()); 
+            } 
+        }); 
+          
+        // put data from sorted list to hashmap  
+        HashMap<String, Double> temp = new LinkedHashMap<String, Double>(); 
+        for (Map.Entry<String, Double> aa : list) { 
+            temp.put(aa.getKey(), aa.getValue()); 
+        } 
+        return temp; 
     }
 
     public void setInfo() {
@@ -126,6 +154,22 @@ public class Main extends javax.swing.JFrame {
             double value = entry.getValue();
             ((DefaultTableModel) jTable3.getModel()).addRow(new Object[]{key, value});
         }
+        
+        String maxCatPrice = "";
+        Map<String, Double> maxCat = sortByValue(categories);
+        for (Map.Entry<String, Double> cat : maxCat.entrySet()) { 
+            maxCatPrice = cat.getKey();
+        }        
+        jLabelMaxTotalPriceCat.setText("En fazlama harcama " + maxCatPrice + " kategorisine ait");
+        
+        String minMonthPrice = "";
+        Map<String, Double> minMonth = sortByValue(months);
+        for (Map.Entry<String, Double> month : minMonth.entrySet()) { 
+            minMonthPrice = month.getKey();
+            break;
+        }        
+        jLabelMinTotalPriceMon.setText("En az harcama "+ minMonthPrice + " ayında yapılmış");
+        
 
     }
 
@@ -150,6 +194,8 @@ public class Main extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jLabelMaxTotalPriceCat = new javax.swing.JLabel();
+        jLabelMinTotalPriceMon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -257,6 +303,10 @@ public class Main extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Ayların Harcama Tutarı");
 
+        jLabelMaxTotalPriceCat.setText("jLabel4");
+
+        jLabelMinTotalPriceMon.setText("jLabel5");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -267,11 +317,18 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jScrollPane)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabelTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabelMinTotalPriceMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabelMaxTotalPriceCat, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -296,7 +353,11 @@ public class Main extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(0, 95, Short.MAX_VALUE)
+                                .addGap(9, 9, 9)
+                                .addComponent(jLabelMaxTotalPriceCat)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabelMinTotalPriceMon)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 38, Short.MAX_VALUE)
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -349,6 +410,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelMaxTotalPriceCat;
+    private javax.swing.JLabel jLabelMinTotalPriceMon;
     private javax.swing.JLabel jLabelTotalPrice;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane1;
