@@ -5,6 +5,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -30,6 +32,7 @@ public class Main extends javax.swing.JFrame {
         initComponents();
         readFile();
         setDataToTable();
+        setInfo();
     }
     
     public void setDataToTable() {
@@ -61,7 +64,38 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, ex.getLocalizedMessage());
         }
     }
+    
+    public void setInfo() {
+        //Calculate total price
+        float totalPrice = 0;
+        for (int i = 1; i < data.size(); i++) {
+            totalPrice += Float.valueOf(data.get(i).getPrice());
+        }
+        jLabelTotalPrice.setText("Toplam Harcama Tutarı : " + totalPrice);
+        
+        //Calculate total prices of categories
+        HashMap<String, Float> categories = new HashMap<>();
+        for (Expenses e: data) {
+            if (!e.getCategory().equals("KATEGORİ")) {
+                if (categories.containsKey(e.getCategory())) {
+                    float price = categories.get(e.getCategory());
+                    categories.put(e.getCategory(), categories.get(e.getCategory()) + price);
+                    System.out.println("Burda");
 
+                } else {
+                    categories.put(e.getCategory(), Float.valueOf(e.getPrice()));                    
+                }                
+            }
+        }
+        
+        for(Map.Entry<String, Float> entry : categories.entrySet()) {
+            String key = entry.getKey();
+            float value = entry.getValue();
+            ((DefaultTableModel) jTable1.getModel()).addRow(new Object[] {key, value}); 
+        }
+        
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -73,6 +107,10 @@ public class Main extends javax.swing.JFrame {
 
         jScrollPane = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
+        jLabelTotalPrice = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
+        jLabelTotalPrice1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -98,16 +136,52 @@ public class Main extends javax.swing.JFrame {
             jTable.getColumnModel().getColumn(0).setResizable(false);
             jTable.getColumnModel().getColumn(1).setResizable(false);
             jTable.getColumnModel().getColumn(2).setResizable(false);
+            jTable.getColumnModel().getColumn(2).setHeaderValue("Title 3");
             jTable.getColumnModel().getColumn(3).setResizable(false);
+            jTable.getColumnModel().getColumn(3).setHeaderValue("Title 4");
         }
+
+        jLabelTotalPrice.setText("jLabel1");
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Kategori", "Toplam"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTable1);
+        if (jTable1.getColumnModel().getColumnCount() > 0) {
+            jTable1.getColumnModel().getColumn(0).setResizable(false);
+            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        }
+
+        jLabelTotalPrice1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelTotalPrice1.setText("Kategorilerin Harcama Tutarı");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 727, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabelTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 227, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabelTotalPrice1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -115,7 +189,13 @@ public class Main extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(311, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabelTotalPrice)
+                    .addComponent(jLabelTotalPrice1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -157,7 +237,11 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabelTotalPrice;
+    private javax.swing.JLabel jLabelTotalPrice1;
     private javax.swing.JScrollPane jScrollPane;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
+    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }
