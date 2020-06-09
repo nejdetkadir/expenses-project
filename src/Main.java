@@ -75,6 +75,7 @@ public class Main extends javax.swing.JFrame {
         jTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
