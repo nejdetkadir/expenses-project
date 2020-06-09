@@ -82,4 +82,47 @@ public class Expenses {
         return nameofday;
     }
     
+    public String getMonth() {
+        String nameofmonth = "";
+        switch (getSimpleDateFormat().toString().split(" ")[1]) {
+            case "Jan":
+                nameofmonth = "Ocak";
+                break;
+            case "Feb":
+                nameofmonth = "Şubat";
+                break;
+            case "Mar":
+                nameofmonth = "Mart";
+                break;    
+            case "Apr":
+                nameofmonth = "Nisan";
+                break;
+            case "May":
+                nameofmonth = "Mayıs";
+                break;
+            case "Jun":
+                nameofmonth = "Haziran";
+                break;
+            case "Jul":
+                nameofmonth = "Temmuz";
+                break;            
+            case "Aug":
+                nameofmonth = "Ağustos";
+                break;    
+            case "Sep":
+                nameofmonth = "Eylül";
+                break;
+            case "Oct":
+                nameofmonth = "Ekim";
+                break;
+            case "Nov":
+                nameofmonth = "Kasım";
+                break;
+            case "Dec":
+                nameofmonth = "Aralık";
+                break;            
+        }        
+        return nameofmonth;
+    }
+    
 }
