@@ -98,8 +98,7 @@ public class Main extends javax.swing.JFrame {
         //Calculate total price
         double totalPrice = 0;
         for (int i = 1; i < data.size(); i++) {
-            double price = Double.valueOf(data.get(i).getPrice());
-            System.out.println(price);
+            totalPrice += Double.valueOf(data.get(i).getPrice());
         }
         jLabelTotalPrice.setText("Toplam Harcama Tutarı : " + totalPrice);
 
