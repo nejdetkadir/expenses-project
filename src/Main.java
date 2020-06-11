@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -27,7 +28,7 @@ import javax.swing.table.DefaultTableModel;
  * @author nejdetkadirr
  */
 public class Main extends javax.swing.JFrame {
-
+    public static String[] info = new String[4];
     ArrayList<Expenses> data = new ArrayList<>();
     BufferedReader br;
 
@@ -96,7 +97,6 @@ public class Main extends javax.swing.JFrame {
 
     public void setInfo() {
         //Calculate total price
-        String[] info = new String[4];
         double totalPrice = 0;
         double weekEndTotal = 0;
         for (int i = 1; i < data.size(); i++) {
@@ -334,6 +334,11 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButton4.setText("Detayları Bilgileri Göster");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -446,6 +451,13 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Lütfen en az 2 adet gün seçiniz");
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // Create new object
+        Details d = new Details();
+        d.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+        d.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
