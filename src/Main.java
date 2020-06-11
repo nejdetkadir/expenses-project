@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
  * @author nejdetkadirr
  */
 public class Main extends javax.swing.JFrame {
-    public static String[] info = new String[4];
+    public static String[] info = new String[6];
     ArrayList<Expenses> data = new ArrayList<>();
     BufferedReader br;
 
@@ -167,19 +167,32 @@ public class Main extends javax.swing.JFrame {
         }
         
         String maxCatPrice = "";
+        String minCatPrice = "";
+        int order = 0;
         Map<String, Double> maxCat = sortByValue(categories);
         for (Map.Entry<String, Double> cat : maxCat.entrySet()) { 
+            if (order == 0) {
+                minCatPrice = cat.getKey();
+            }
+            order++;
             maxCatPrice = cat.getKey();
         }        
+        order = 0;
         info[2] = "En fazlama harcama " + maxCatPrice + " kategorisine ait";
+        info[3] = "En az harcama " + minCatPrice + " kategorisine ait";
         
         String minMonthPrice = "";
+        String maxMonthPrice = "";
         Map<String, Double> minMonth = sortByValue(months);
         for (Map.Entry<String, Double> month : minMonth.entrySet()) { 
-            minMonthPrice = month.getKey();
-            break;
+            if (order == 0) {
+                minMonthPrice = month.getKey();
+            }
+            order++;
+            maxMonthPrice = month.getKey();
         }        
-        info[3] = "En az harcama "+ minMonthPrice + " ayında yapılmış";
+        info[4] = "En az harcama "+ minMonthPrice + " ayında yapılmış";
+        info[5] = "En fazla harcama "+ maxMonthPrice + " ayında yapılmış";
     }
 
     /**
