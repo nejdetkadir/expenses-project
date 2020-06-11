@@ -96,6 +96,7 @@ public class Main extends javax.swing.JFrame {
 
     public void setInfo() {
         //Calculate total price
+        String[] info = new String[4];
         double totalPrice = 0;
         double weekEndTotal = 0;
         for (int i = 1; i < data.size(); i++) {
@@ -105,11 +106,11 @@ public class Main extends javax.swing.JFrame {
             }
         }
         if (weekEndTotal > (totalPrice - weekEndTotal)) {
-            jLabelWeekendInfo.setText("Haftasonu daha fazla harcama yapılmış");
+            info[0] = "Haftasonu daha fazla harcama yapılmış";
         } else {
-            jLabelWeekendInfo.setText("Haftaiçi daha fazla harcama yapılmış");
+             info[0] = "Haftaiçi daha fazla harcama yapılmış";
         }
-        jLabelTotalPrice.setText("Toplam Harcama Tutarı : " + totalPrice);
+        info[1] = "Toplam Harcama Tutarı : " + totalPrice;
 
         //Calculate total prices of categories
         HashMap<String, Double> categories = new HashMap<>();
@@ -168,7 +169,7 @@ public class Main extends javax.swing.JFrame {
         for (Map.Entry<String, Double> cat : maxCat.entrySet()) { 
             maxCatPrice = cat.getKey();
         }        
-        jLabelMaxTotalPriceCat.setText("En fazlama harcama " + maxCatPrice + " kategorisine ait");
+        info[2] = "En fazlama harcama " + maxCatPrice + " kategorisine ait";
         
         String minMonthPrice = "";
         Map<String, Double> minMonth = sortByValue(months);
@@ -176,9 +177,7 @@ public class Main extends javax.swing.JFrame {
             minMonthPrice = month.getKey();
             break;
         }        
-        jLabelMinTotalPriceMon.setText("En az harcama "+ minMonthPrice + " ayında yapılmış");
-        
-
+        info[3] = "En az harcama "+ minMonthPrice + " ayında yapılmış";
     }
 
     /**
@@ -192,7 +191,6 @@ public class Main extends javax.swing.JFrame {
 
         jScrollPane = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
-        jLabelTotalPrice = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -202,10 +200,9 @@ public class Main extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jLabelMaxTotalPriceCat = new javax.swing.JLabel();
-        jLabelMinTotalPriceMon = new javax.swing.JLabel();
-        jLabelWeekendInfo = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -235,8 +232,6 @@ public class Main extends javax.swing.JFrame {
             jTable.getColumnModel().getColumn(3).setResizable(false);
             jTable.getColumnModel().getColumn(3).setHeaderValue("Title 4");
         }
-
-        jLabelTotalPrice.setText("jLabel1");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -313,16 +308,27 @@ public class Main extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Ayların Harcama Tutarı");
 
-        jLabelMaxTotalPriceCat.setText("jLabel4");
-
-        jLabelMinTotalPriceMon.setText("jLabel5");
-
-        jLabelWeekendInfo.setText("jLabel5");
-
+        jButton1.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
         jButton1.setText("Seçilen Ayların Toplamı");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jButton2.setText("Seçilen Kategorilerin Toplamı");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setFont(new java.awt.Font("Ubuntu", 0, 12)); // NOI18N
+        jButton3.setText("Seçilen Günlerin Toplamı");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
             }
         });
 
@@ -333,31 +339,25 @@ public class Main extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane)
+                    .addComponent(jScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelWeekendInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabelTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                                        .addComponent(jLabelMinTotalPriceMon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)))
-                                    .addComponent(jLabelMaxTotalPriceCat, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 6, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(61, 61, 61)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))))
+                        .addGap(67, 67, 67)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                            .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -368,38 +368,34 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabelTotalPrice)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1)
+                        .addGap(6, 6, 6)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(87, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(9, 9, 9)
-                                .addComponent(jLabelMaxTotalPriceCat)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabelMinTotalPriceMon)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelWeekendInfo)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 229, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
-                        .addComponent(jButton1)
-                        .addGap(14, 14, 14)))
-                .addContainerGap())
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton3)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton1)
+                            .addComponent(jButton2))
+                        .addGap(26, 26, 26))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // Calculate selected total price of months 
+        // Calculate selected total price of months
         int[] selected_row = jTable3.getSelectedRows();
         if (selected_row.length > 1) {
             double total = 0;
@@ -412,8 +408,39 @@ public class Main extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(this, "Lütfen en az 2 adet ay seçiniz");
         }
-        
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // Calculate selected total price of categories
+        int[] selected_row = jTable1.getSelectedRows();
+        if (selected_row.length > 1) {
+            double total = 0;
+            String categories = "";
+            for (int i = 0; i < selected_row.length; i++) {
+                total += (Double) jTable1.getValueAt(selected_row[i], 1);
+                categories += "\n-> "+jTable1.getValueAt(selected_row[i], 0).toString();
+            }
+            JOptionPane.showMessageDialog(this, "Seçilen kategoriler :"+categories +"\nToplam Tutar : " + total);
+        } else {
+            JOptionPane.showMessageDialog(this, "Lütfen en az 2 adet kategori seçiniz");
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // Calculate selected total price of categories
+        int[] selected_row = jTable2.getSelectedRows();
+        if (selected_row.length > 1) {
+            double total = 0;
+            String days = "";
+            for (int i = 0; i < selected_row.length; i++) {
+                total += (Double) jTable2.getValueAt(selected_row[i], 1);
+                days += "\n-> "+jTable2.getValueAt(selected_row[i], 0).toString();
+            }
+            JOptionPane.showMessageDialog(this, "Seçilen günler :"+days +"\nToplam Tutar : " + total);
+        } else {
+            JOptionPane.showMessageDialog(this, "Lütfen en az 2 adet gün seçiniz");
+        }
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -452,13 +479,11 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelMaxTotalPriceCat;
-    private javax.swing.JLabel jLabelMinTotalPriceMon;
-    private javax.swing.JLabel jLabelTotalPrice;
-    private javax.swing.JLabel jLabelWeekendInfo;
     private javax.swing.JScrollPane jScrollPane;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
