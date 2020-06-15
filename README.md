@@ -4,7 +4,7 @@ Expenses is an application for calculate basic process.
   - It writed with Java Language
   - It created for midterm exam
 
-For [android application](https://github.com/nejdetkadir/expenses-project).
+For [android application](https://github.com/nejdetkadir/expenses-project-android).
 ### For launch app
 Expenses uses an open source project to work properly:
 * [Java] 
