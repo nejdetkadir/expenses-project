@@ -312,7 +312,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Detaylar&#x131; Bilgileri G&#xf6;ster"/>
+        <Property name="text" type="java.lang.String" value="Detayl&#x131; Bilgileri G&#xf6;ster"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton4ActionPerformed"/>

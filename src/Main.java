@@ -349,7 +349,7 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Detayları Bilgileri Göster");
+        jButton4.setText("Detaylı Bilgileri Göster");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
